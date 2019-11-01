@@ -77,14 +77,11 @@ public class SceneManager : MonoBehaviour
         current = 0;
         canvases[0].SetActive(true);
         field = 1;
-       // saturation = (float)0.5;
 
         ChangeImage(0);
         CreatScript.createAcc(11);
         CreatScript.field = this.field;
         CreatScript.create(field);
-      //  CreatScript.saturation = saturation;
-       // CreatScript.changeJacketColor();
         
     }
 

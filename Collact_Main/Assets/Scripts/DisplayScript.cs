@@ -7,14 +7,11 @@ public class DisplayScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // int width = 834, height = 1194, refreshRate;
-        // refreshRate = 120;
-        // Display.displays[1].Activate(width, height, refreshRate);
-
-
-
+        if(Display.displays.Length>1)
+        {
+            Display.displays[1].Activate(834, 1194, 60);
+        }
     }
-
     // void mapCameraToDisplay()
     // {
     //     //Loop over Connected Displays
