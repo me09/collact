@@ -27,7 +27,7 @@ public class SceneManager : MonoBehaviour
 
     private int field = 1;
     private string player_name;
-    private CreatController CreatScript;
+    private CreateController CreateScript;
     private GameObject CreatedChar;
 
     private Image scene4Image, scene5Image, scene6Image;
@@ -36,7 +36,7 @@ public class SceneManager : MonoBehaviour
     void Awake()
     {
         CreatedChar = GameObject.FindGameObjectWithTag("createdChar");
-        CreatScript = CreatedChar.GetComponent<CreatController>();
+        CreateScript = CreatedChar.GetComponent<CreateController>();
         buttons[0].image.sprite = onButton[0];
 
         scene4Image = background[0].GetComponent<Image>();
@@ -56,16 +56,16 @@ public class SceneManager : MonoBehaviour
         canvases[current].SetActive(false);
         current += 1;
         if(current == 3){
-            CreatScript.creatMotion.SetTrigger("Hello");
+            CreateScript.createMotion.SetTrigger("Hello");
         }
         if (current == 4)
         {   
-            CreatScript.createAcc(0);
-            CreatScript.creatMotion.SetTrigger("Suprise");
+            CreateScript.createAcc(0);
+            CreateScript.createMotion.SetTrigger("Suprise");
         }
         if (current == 5)
         {
-            CreatScript.creatMotion.SetTrigger("Dancing");
+            CreateScript.createMotion.SetTrigger("Dancing");
             StartCoroutine(stay10Seconds());
         }
     }
@@ -79,9 +79,13 @@ public class SceneManager : MonoBehaviour
         field = 1;
 
         ChangeImage(0);
-        CreatScript.createAcc(11);
-        CreatScript.field = this.field;
-        CreatScript.create(field);
+
+        CreateScript.createAcc(11);
+        CreateScript.field = this.field;
+        CreateScript.create(field);
+      //  CreatScript.saturation = saturation;
+       // CreatScript.changeJacketColor();
+
         
     }
 
@@ -98,8 +102,8 @@ public class SceneManager : MonoBehaviour
             buttons[field-1].image.sprite = offButton[field-1];
         }
         field = btnNum;
-        CreatScript.field = this.field;
-        CreatScript.create(field);
+        CreateScript.field = this.field;
+        CreateScript.create(field);
         Debug.Log(field);
         ChangeImage(btnNum-1);
     }
@@ -118,7 +122,7 @@ public class SceneManager : MonoBehaviour
      }
      scene4Image.sprite = backgroundImage_scene4[index];
      scene5Image.sprite = backgroundImage_scene5[index];
-     scene6Image.color = CreatScript.altColor;
+     scene6Image.color = CreateScript.altColor;
      
      }
 }
