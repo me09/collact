@@ -29,13 +29,9 @@ public class RealTimeManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-        saturation = (slider.value) / 100;
-        year = (int)slider2.value;
-        
-        Debug.Log(saturation);
-        Debug.Log(year);
-        Debug.Log(current_);
-        
+            Debug.Log(saturation);
+            Debug.Log(year);
+            Debug.Log(current_);
         if(current_== 0)
         {
             slider.value = (float)0.5;
@@ -45,11 +41,13 @@ public class RealTimeManager : MonoBehaviour
         }
         if (current_ == 3)
         {
+            saturation = (slider.value) / 100;
             CreatScript.saturation = saturation;
             CreatScript.changeJacketColor();
         }
         if (current_ == 4)
         {
+            year = (int)slider2.value;
             CreatScript.year = this.year;
             CreatScript.createAcc(year);
         }
