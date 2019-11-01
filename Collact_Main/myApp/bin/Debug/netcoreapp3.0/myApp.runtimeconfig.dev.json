@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/Users/hduck/.dotnet/store/|arch|/|tfm|",
+      "/Users/hduck/.nuget/packages"
+    ]
+  }
+}
