@@ -14,7 +14,7 @@ public class CrowdManager : MonoBehaviour
     private CreateController manCreateController;
     private WalkingController manWalkingController;
 
-    private int pooledAmount = 20;
+    private int pooledAmount = 50;
 
     void Start()
     {
@@ -37,11 +37,10 @@ public class CrowdManager : MonoBehaviour
             manWalkingController.moveSpeed = Random.Range(1, 3) * 1f;
             manWalkingController.rotSpeed = Random.Range(50, 100) * 1f;
 
-
-            Debug.Log((i % 7) + 1);
-            // manCreateController.create((i % 7) + 1);
-            // manCreateController.changeJacketColor();
-            // manCreateController.createAcc((i % 10));
+            manCreateController.field = (i % 7) + 1;
+            manCreateController.create((i % 7) + 1);
+            manCreateController.changeJacketColor();
+            manCreateController.createAcc((i % 10));
         }
     }
 }

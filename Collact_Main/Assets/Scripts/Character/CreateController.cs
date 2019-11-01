@@ -7,36 +7,36 @@ using UnityEngine;
 
 public class CreateController : MonoBehaviour
 {
-     private GameObject head;
-     private GameObject acc;
-     private GameObject head_position;
+    private GameObject head;
+    private GameObject acc;
+    private GameObject head_position;
 
-     private GameObject head_position_top;
+    private GameObject head_position_top;
 
-     private GameObject body;
-     private GameObject clothJacket;
-     private GameObject clothShadow;
-     private GameObject bag;
-      public Color altColor;
-     private Color hsvColor;
-     private float hue = 0, value = 1;
-     public int year = 0;
-     public float saturation = 0.5f;
-     public int field =1;
+    private GameObject body;
+    private GameObject clothJacket;
+    private GameObject clothShadow;
+    private GameObject bag;
+    public Color altColor;
+    private Color hsvColor;
+    private float hue = 0, value = 1;
+    public int year = 0;
+    public float saturation = 0.5f;
+    public int field =1;
    
-   public GameObject[] feildObject = new GameObject[7];
+    public GameObject[] feildObject = new GameObject[7];
 
-   public GameObject[] item = new GameObject[10];
-   
-   private GameObject[] itemPosition = new GameObject[10];
+    public GameObject[] item = new GameObject[10];
+    
+    private GameObject[] itemPosition = new GameObject[10];
 
     private GameObject targetHead;
     private Color jacketColor;
-   private GameObject parentPosition;
+    private GameObject parentPosition;
 
-   public int testNum = 3;
+    public int testNum = 3;
 
-   public Animator createMotion;
+    public Animator createMotion;
  
 
 
@@ -61,23 +61,18 @@ public class CreateController : MonoBehaviour
         createMotion = GetComponent<Animator>();
         itemPosition[9] = GameObject.FindGameObjectWithTag("totebag_position");
 
-         hue = 352f / 360f;
-         targetHead = feildObject[field-1];
-         altColor =  Color.HSVToRGB(hue, saturation, value);
+        hue = 352f / 360f;
+        targetHead = feildObject[field-1];
+        altColor =  Color.HSVToRGB(hue, saturation, value);
 
         head.GetComponent<Renderer>().material.color = altColor;
         clothJacket.GetComponent<Renderer>().material.color = altColor;
         clothShadow.GetComponent<Renderer>().material.color = altColor;
 
-
-
-
-
-
-         //Call Example to set all color values to zero.
-         //Get the renderer of the object so we can access the color
-         
-         //Set the initial color (0f,0f,0f,0f)
+        //Call Example to set all color values to zero.
+        //Get the renderer of the object so we can access the color
+        
+        //Set the initial color (0f,0f,0f,0f)
          
 
         
@@ -102,53 +97,58 @@ public class CreateController : MonoBehaviour
     }
     
     public void changeJacketColor(){
-         jacketColor =  Color.HSVToRGB(hue, saturation, value);
-         clothJacket.GetComponent<Renderer>().material.color = jacketColor;
+        jacketColor =  Color.HSVToRGB(hue, saturation, value);
+        clothJacket.GetComponent<Renderer>().material.color = jacketColor;
     }
     public void create(int index){
-                switch (index)
-         {
-             case 1 :
+        switch (index)
+        {
+            case 1 :
                 hue = 352f / 360f;
                 targetHead = feildObject[field-1];
                 break;
-             case 2 :
+
+            case 2 :
                 hue = 26f / 360f;
                 targetHead = feildObject[field-1];
                 break;
-             case 3 :
+
+            case 3 :
                 hue = 50f / 360f;
                 targetHead = feildObject[field-1];
                 break;
-              case 4 :
+
+            case 4 :
                 hue = 97f / 360f;
                 value = 0.902f;
                 targetHead = feildObject[field-1];
                 break;
-             case 5 :
+
+            case 5 :
                 hue = 188f / 360f;
                 targetHead = feildObject[field-1];
                 value = 0.902f;
                 break;
 
-             case 6 :
+            case 6 :
                 hue = 224f / 360f;
                 targetHead = feildObject[field-1];
                 break;
 
-             case 7 :
+            case 7 :
                 hue = 265f / 360f;
                 targetHead = feildObject[field-1];
-                break;           
-             default:
-                break;
-         }
-         altColor =  Color.HSVToRGB(hue, 1, value);
+                break;  
 
-         head.GetComponent<Renderer>().material.color = altColor;
-         clothJacket.GetComponent<Renderer>().material.color = altColor;
-         clothShadow.GetComponent<Renderer>().material.color = altColor;
-         changeHead(targetHead);
+            default:
+                break;
+        }
+        altColor =  Color.HSVToRGB(hue, 1, value);
+
+        head.GetComponent<Renderer>().material.color = altColor;
+        clothJacket.GetComponent<Renderer>().material.color = altColor;
+        clothShadow.GetComponent<Renderer>().material.color = altColor;
+        changeHead(targetHead);
 
     }
 
@@ -163,24 +163,21 @@ public class CreateController : MonoBehaviour
         if(Input.GetKey ("1")){
             changeHead(targetHead);
         }
-             {
-         if (Input.GetKeyDown (KeyCode.G)){  
-             //Alter the color       
-                // altColor.saturation -= 0.5f;
-             //Assign the changed color to the material.
+        if (Input.GetKeyDown (KeyCode.G)){  
+            //Alter the color       
+            //altColor.saturation -= 0.5f;
+            //Assign the changed color to the material.
             saturation -= 0.1f;
             altColor =  Color.HSVToRGB(hue, saturation, value);
 
             gameObject.GetComponent<Renderer>().material.color = altColor;
-         }
-     }         
-        
+        }             
     }
 
     void changeHead( GameObject feild){
-      if(head){
-         Destroy(head);
-      }
+        if(head){
+            Destroy(head);
+        }
       
         head = Instantiate(feild,head_position.transform.position,head_position.transform.rotation);
         head.transform.parent = head_position.transform.parent;
