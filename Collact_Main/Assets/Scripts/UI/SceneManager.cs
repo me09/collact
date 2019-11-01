@@ -32,6 +32,8 @@ public class SceneManager : MonoBehaviour
 
     private Image scene4Image, scene5Image, scene6Image;
 
+    public DataManager dataManager;
+
 
     void Awake()
     {
@@ -48,6 +50,8 @@ public class SceneManager : MonoBehaviour
 
         for (int i = 1; i < 6; i++)
             canvases[i].SetActive(false);
+
+        dataManager.LoadUserData();
     }
 
     public void forward()
