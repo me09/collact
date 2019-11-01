@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class CreatController : MonoBehaviour
+public class CreateController : MonoBehaviour
 {
      private GameObject head;
      private GameObject acc;
@@ -36,13 +36,13 @@ public class CreatController : MonoBehaviour
 
    public int testNum = 3;
 
-   public Animator creatMotion;
+   public Animator createMotion;
  
 
 
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         head = GameObject.FindGameObjectWithTag("head");
         head_position = GameObject.FindGameObjectWithTag("HeadPosition");
@@ -58,7 +58,7 @@ public class CreatController : MonoBehaviour
         itemPosition[6] = GameObject.FindGameObjectWithTag("laptopcase_position");
         itemPosition[7] = GameObject.FindGameObjectWithTag("suitcase_position");
         itemPosition[8] = GameObject.FindGameObjectWithTag("thingbag_position");
-        creatMotion = GetComponent<Animator>();
+        createMotion = GetComponent<Animator>();
         itemPosition[9] = GameObject.FindGameObjectWithTag("totebag_position");
 
          hue = 352f / 360f;
@@ -105,7 +105,7 @@ public class CreatController : MonoBehaviour
          jacketColor =  Color.HSVToRGB(hue, saturation, value);
          clothJacket.GetComponent<Renderer>().material.color = jacketColor;
     }
-    public void create(float index){
+    public void create(int index){
                 switch (index)
          {
              case 1 :
