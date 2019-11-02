@@ -24,6 +24,21 @@ TagManager:
   - UICam
   - neckbag_position
   - carrier_position
+  - HeadPosition_clone
+  - acc1
+  - acc2
+  - acc3
+  - acc4
+  - acc5
+  - acc6
+  - acc7
+  - acc8
+  - acc9
+  - acc10
+  - Cloth_jacket_clone
+  - Cloth_shadow_clone
+  - Head_clone
+  - Acc_clone
   layers:
   - Default
   - TransparentFX
