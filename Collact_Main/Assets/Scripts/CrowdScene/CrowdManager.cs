@@ -14,39 +14,33 @@ public class CrowdManager : MonoBehaviour
     private CreateController manCreateController;
     private WalkingController manWalkingController;
 
-    private createCrowed maker;
+    private CreateCrowd manCreateCrowd;
 
 
 
-    private int pooledAmount =3;
+    private int pooledAmount = 100;
 
     void Start()
     {
         mans = new List<GameObject>();
-        maker = manPrefab.GetComponent<createCrowed>();
 
         for (int i = 0; i < pooledAmount; i++) {
-            GameObject man = Instantiate(maker.CreatCrowdCharacter(i,(i%7)+1,0.5f,(i%10)));
+            GameObject man = Instantiate(manPrefab);
 
-            // maker.CreatCrowdCharacter(i,(i%7) + 1,0.5f,(i%10));
             manTransform = man.GetComponent<Transform>();
             manWalkingController = man.GetComponent<WalkingController>();
+            manCreateCrowd = man.GetComponent<CreateCrowd>();
             manTransform.SetParent(this.transform);
             
             int ranX, ranZ;
             ranX = Random.Range(0, 10);
             ranZ = Random.Range(0, 10);
             manTransform.position = new Vector3(ranX, 0, ranZ - 5);
-            // manTransform.position = new Vector3(0, 0, -5);
             manTransform.rotation = Quaternion.Euler(manTransform.up * Random.Range(0, 359));
 
             manWalkingController.moveSpeed = Random.Range(1, 3) * 1f;
             manWalkingController.rotSpeed = Random.Range(50, 100) * 1f;
-            // manCreateController.field = (i % 7) + 1;
-            // manCreateController.create((i % 7) + 1);
-            // manCreateController.changeJacketColor();
-            // manCreateController.createAcc((i % 10));
-        
+            manCreateCrowd.createCrowdCharacter((i % 7) + 1, Random.Range(0, 100) * 0.01f, (i % 10) + 1);
         }
     }
 
