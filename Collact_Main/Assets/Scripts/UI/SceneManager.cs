@@ -20,13 +20,13 @@ public class SceneManager : MonoBehaviour
 
     public int current = 0;
 
-    public InputField pname;
+//    public InputField pname;
 
     private float saturation;
     public int year = 0;
 
     private int field = 1;
-    private string player_name;
+  //  private string player_name;
     private CreateController CreateScript;
     private GameObject CreatedChar;
 
@@ -112,12 +112,12 @@ public class SceneManager : MonoBehaviour
         ChangeImage(btnNum-1);
     }
 
-    public void input_name()
+/*     public void input_name()
     {
         player_name = pname.text;
         Debug.Log(player_name);
     }
-
+*/
      public void ChangeImage(int index){
      if (buttons[index].image.sprite == onButton[index])
          buttons[index].image.sprite = offButton[index];
