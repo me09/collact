@@ -58,8 +58,10 @@ public class CreateController : MonoBehaviour
         itemPosition[6] = GameObject.FindGameObjectWithTag("laptopcase_position");
         itemPosition[7] = GameObject.FindGameObjectWithTag("suitcase_position");
         itemPosition[8] = GameObject.FindGameObjectWithTag("thingbag_position");
-        createMotion = GetComponent<Animator>();
         itemPosition[9] = GameObject.FindGameObjectWithTag("totebag_position");
+
+        createMotion = GetComponent<Animator>();
+
 
         hue = 352f / 360f;
         targetHead = feildObject[field-1];

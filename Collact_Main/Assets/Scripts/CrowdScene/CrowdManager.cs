@@ -14,16 +14,22 @@ public class CrowdManager : MonoBehaviour
     private CreateController manCreateController;
     private WalkingController manWalkingController;
 
-    private int pooledAmount = 50;
+    private createCrowed maker;
+
+
+
+    private int pooledAmount =3;
 
     void Start()
     {
         mans = new List<GameObject>();
-        for (int i = 0; i < pooledAmount; i++) {
-            GameObject man = (GameObject)Instantiate(manPrefab);
-            manTransform = man.GetComponent<Transform>();
+        maker = manPrefab.GetComponent<createCrowed>();
 
-            manCreateController = man.GetComponent<CreateController>();
+        for (int i = 0; i < pooledAmount; i++) {
+            GameObject man = Instantiate(maker.CreatCrowdCharacter(i,(i%7)+1,0.5f,(i%10)));
+
+            // maker.CreatCrowdCharacter(i,(i%7) + 1,0.5f,(i%10));
+            manTransform = man.GetComponent<Transform>();
             manWalkingController = man.GetComponent<WalkingController>();
             manTransform.SetParent(this.transform);
             
@@ -36,11 +42,13 @@ public class CrowdManager : MonoBehaviour
 
             manWalkingController.moveSpeed = Random.Range(1, 3) * 1f;
             manWalkingController.rotSpeed = Random.Range(50, 100) * 1f;
-
-            manCreateController.field = (i % 7) + 1;
-            manCreateController.create((i % 7) + 1);
-            manCreateController.changeJacketColor();
-            manCreateController.createAcc((i % 10));
+            // manCreateController.field = (i % 7) + 1;
+            // manCreateController.create((i % 7) + 1);
+            // manCreateController.changeJacketColor();
+            // manCreateController.createAcc((i % 10));
+        
         }
     }
+
+    
 }
