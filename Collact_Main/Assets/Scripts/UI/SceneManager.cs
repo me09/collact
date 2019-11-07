@@ -8,9 +8,14 @@ using UnityEngine.SceneManagement;
 public class SceneManager : MonoBehaviour
 {
     public GameObject[] canvases;
+    private CanvasGroup fadeInCanvas;
+    private CanvasGroup fadeOutCanvas;
     public Button[] buttons = new Button[7];
 
     public GameObject[] background = new GameObject[3];
+
+    public GameObject backgroundTmp;
+    private Image backgroundImgTmp;
     public Sprite[] backgroundImage_scene4 = new Sprite[7];
 
     public Sprite[] backgroundImage_scene5 = new Sprite[7];
@@ -19,6 +24,8 @@ public class SceneManager : MonoBehaviour
     public Sprite[] onButton = new Sprite[7];
 
     public int current = 0;
+    public Slider slider;
+    public Slider slider2;
 
 //    public InputField pname;
 
@@ -44,6 +51,12 @@ public class SceneManager : MonoBehaviour
         scene4Image = background[0].GetComponent<Image>();
         scene5Image = background[1].GetComponent<Image>();
         scene6Image = background[2].GetComponent<Image>();
+        backgroundImgTmp = backgroundTmp.GetComponent<Image>();
+        
+        // for(int i = 0;i < 6;i++){
+        //     canvas[i] = canvases[i].GetComponent<CanvasGroup>();
+        //     Debug.Log(i);
+        // }
         year = -1;
 
         canvases[0].SetActive(true);
@@ -57,38 +70,52 @@ public class SceneManager : MonoBehaviour
     public void forward()
     {
         canvases[current + 1].SetActive(true);
+        fadeInCanvas = canvases[current + 1].GetComponent<CanvasGroup>();
+        fadeOutCanvas = canvases[current].GetComponent<CanvasGroup>();
+        StartCoroutine(FadeEffect.FadeCanvas(fadeInCanvas, 0f, 1f, 1f));
+
+
         canvases[current].SetActive(false);
         current += 1;
         if(current == 3){
             CreateScript.createMotion.SetTrigger("Hello");
+            backgroundImgTmp.sprite = backgroundImage_scene4[field-1];
+            
         }
         if (current == 4)
         {   
             CreateScript.createAcc(0);
             CreateScript.createMotion.SetTrigger("Suprise");
+            backgroundImgTmp.sprite = backgroundImage_scene5[field-1];
+
         }
         if (current == 5)
         {
             CreateScript.createMotion.SetTrigger("Dancing");
             StartCoroutine(stay10Seconds());
+            backgroundImgTmp.sprite = default;
+            backgroundImgTmp.color = CreateScript.altColor;
         }
+    
     }
 
     IEnumerator stay10Seconds()
     {
+        
         yield return new WaitForSeconds(10);
         canvases[current].SetActive(false);
         current = 0;
         canvases[0].SetActive(true);
+        ChangeImage(field-1);
         field = 1;
-
-        ChangeImage(0);
-
+        slider.value = 40;
+        slider2.value = 4;
         CreateScript.createAcc(11);
         CreateScript.field = this.field;
         CreateScript.create(field);
-      //  CreatScript.saturation = saturation;
-       // CreatScript.changeJacketColor();
+        backgroundImgTmp.sprite = default;
+        backgroundImgTmp.color = Color.white;
+
 
         
     }
@@ -96,6 +123,7 @@ public class SceneManager : MonoBehaviour
     public void backward()
     {
         canvases[current].SetActive(false);
+        // StartCoroutine(FadeEffect.FadeCanvas(canvas[current], 1f, 0f, 2f));
         canvases[current - 1].SetActive(true);
         current -= 1;
     }
@@ -129,4 +157,34 @@ public class SceneManager : MonoBehaviour
      scene6Image.color = CreateScript.altColor;
      
      }
+}
+
+public class FadeEffect : MonoBehaviour {
+    public static IEnumerator FadeCanvas(CanvasGroup canvas, float startAlpha, float endAlpha, float duration)
+    {
+         // keep track of when the fading started, when it should finish, and how long it has been running&lt;/p&gt; &lt;p&gt;&a
+         var startTime = Time.time;
+         var endTime = Time.time + duration;
+         var elapsedTime = 0f;
+ 
+         // set the canvas to the start alpha – this ensures that the canvas is ‘reset’ if you fade it multiple times
+         canvas.alpha = startAlpha;
+         // loop repeatedly until the previously calculated end time
+         while (Time.time <= endTime)
+         {
+             elapsedTime = Time.time - startTime; // update the elapsed time
+             var percentage = 1/(duration/elapsedTime); // calculate how far along the timeline we are
+             if (startAlpha > endAlpha) // if we are fading out/down 
+             {
+                  canvas.alpha = startAlpha - percentage; // calculate the new alpha
+             }
+             else // if we are fading in/up
+             {
+                 canvas.alpha = startAlpha + percentage; // calculate the new alpha
+             }
+ 
+             yield return new WaitForEndOfFrame(); // wait for the next frame before continuing the loop
+        }
+        canvas.alpha = endAlpha; // force the alpha to the end alpha before finishing – this is here to mitigate any rounding errors, e.g. leaving the alpha at 0.01 instead of 0
+    }
 }
