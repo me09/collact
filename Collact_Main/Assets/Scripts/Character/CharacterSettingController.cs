@@ -2,20 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateCrowd : MonoBehaviour
+public class CharacterSettingController : MonoBehaviour
 {
+    public GameObject body;
     public GameObject clothJacket;
     public GameObject clothShadow;
     public GameObject[] item = new GameObject[10];
     public GameObject[] head = new GameObject[7];
 
-    public void createCrowdCharacter(int field ,float saturation, int year) {
+    private float hue = 0, fixedSaturation = 1, flexibleSaturation = 0, value = 1;
+    private Color mainColor;
+
+    public void setCharacterAttribute(int field ,float saturation, int year) {
         setInitState();
+        body.SetActive(true);
+        
+        setField(field);
 
-        float hue = 1;
-        float value = 1;
-        Color mainColor;
+        setSaturation(saturation);
 
+        setAcc(year);
+    }
+
+    public void setInitState() {
+        body.SetActive(false);
+
+        foreach (GameObject eachHead in head) {
+            eachHead.SetActive(false);
+        }
+        foreach (GameObject eachAcc in item) {
+            eachAcc.SetActive(false);
+        }
+    }
+
+    public void setField(int field) {
         switch (field)
         {
             case 1 :
@@ -53,23 +73,24 @@ public class CreateCrowd : MonoBehaviour
                 break;
         }
 
-        mainColor =  Color.HSVToRGB(hue, 1, value);
+        mainColor =  Color.HSVToRGB(hue, fixedSaturation, value);
         head[field - 1].SetActive(true);
         head[field - 1].GetComponent<Renderer>().material.color = mainColor;
 
-        item[year - 1].SetActive(true);
-        item[year - 1].GetComponent<Renderer>().material.color = mainColor;
-
         clothShadow.GetComponent<Renderer>().material.color = mainColor;
-        clothJacket.GetComponent<Renderer>().material.color = Color.HSVToRGB(hue, saturation, value);
     }
 
-    private void setInitState() {
-        foreach (GameObject eachHead in head) {
-            eachHead.SetActive(false);
-        }
-        foreach (GameObject eachAcc in item) {
-            eachAcc.SetActive(false);
-        }
+    public void setSaturation(float saturation) {
+        flexibleSaturation = saturation;
+        clothJacket.GetComponent<Renderer>().material.color = Color.HSVToRGB(hue, flexibleSaturation, value);
+    }
+
+    public void setAcc(int year) {
+        item[year - 1].SetActive(true);
+        item[year - 1].GetComponent<Renderer>().material.color = mainColor;
+    }
+
+    private void appearBody() {
+        body.SetActive(true);
     }
 }

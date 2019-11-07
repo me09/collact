@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4595667645365829840}
   m_Layer: 0
-  m_Name: Walking
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 910000911454232762}
   - component: {fileID: 2633401541077836435}
   m_Layer: 0
-  m_Name: body
+  m_Name: Body
   m_TagString: body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1583,8 +1583,8 @@ GameObject:
   - component: {fileID: 7980535762257499165}
   - component: {fileID: 7980535762257499162}
   - component: {fileID: 7980535762257499163}
-  - component: {fileID: 1458599055453243700}
   - component: {fileID: 7980535762257499164}
+  - component: {fileID: 1458599055453243700}
   m_Layer: 0
   m_Name: CharacterPrefab
   m_TagString: createdChar
@@ -1686,20 +1686,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
---- !u!114 &1458599055453243700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7980535762257499161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 244659768690c4f62be229b3077d8ffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  rotSpeed: 100
 --- !u!114 &7980535762257499164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1712,6 +1698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b265c063f1914d47944ddf5e9c96fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 8295363954298221929}
   clothJacket: {fileID: 4646935630927088146}
   clothShadow: {fileID: 5202585304696715061}
   item:
@@ -1733,6 +1720,20 @@ MonoBehaviour:
   - {fileID: 7773873986629740104}
   - {fileID: 7948060555766168554}
   - {fileID: 1183489873004248360}
+--- !u!114 &1458599055453243700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980535762257499161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 244659768690c4f62be229b3077d8ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  rotSpeed: 100
 --- !u!1 &8295363954298221929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,7 +1744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7333031877026972277}
   m_Layer: 0
-  m_Name: red
+  m_Name: CharacterBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

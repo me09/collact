@@ -36,7 +36,7 @@ public class CreateController : MonoBehaviour
 
     public int testNum = 3;
 
-    public Animator createMotion;
+    public Animator animator;
  
 
 
@@ -60,7 +60,7 @@ public class CreateController : MonoBehaviour
         itemPosition[8] = GameObject.FindGameObjectWithTag("thingbag_position");
         itemPosition[9] = GameObject.FindGameObjectWithTag("totebag_position");
 
-        createMotion = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
 
         hue = 352f / 360f;
@@ -153,11 +153,6 @@ public class CreateController : MonoBehaviour
         changeHead(targetHead);
 
     }
-
-    void rendAcc(int index){
-       
-    }
-
 
     // Update is called once per frame
     void Update()

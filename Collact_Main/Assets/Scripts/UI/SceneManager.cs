@@ -20,19 +20,15 @@ public class SceneManager : MonoBehaviour
 
     public int current = 0;
 
-//    public InputField pname;
-
     private float saturation;
     public int year = 0;
 
     private int field = 1;
-  //  private string player_name;
+
     private CreateController CreateScript;
     private GameObject CreatedChar;
 
     private Image scene4Image, scene5Image, scene6Image;
-
-    public DataManager dataManager;
 
 
     void Awake()
@@ -50,8 +46,6 @@ public class SceneManager : MonoBehaviour
 
         for (int i = 1; i < 6; i++)
             canvases[i].SetActive(false);
-
-        dataManager.LoadUserData();
     }
 
     public void forward()
@@ -60,16 +54,16 @@ public class SceneManager : MonoBehaviour
         canvases[current].SetActive(false);
         current += 1;
         if(current == 3){
-            CreateScript.createMotion.SetTrigger("Hello");
+            CreateScript.animator.SetTrigger("Hello");
         }
         if (current == 4)
         {   
             CreateScript.createAcc(0);
-            CreateScript.createMotion.SetTrigger("Suprise");
+            CreateScript.animator.SetTrigger("Suprise");
         }
         if (current == 5)
         {
-            CreateScript.createMotion.SetTrigger("Dancing");
+            CreateScript.animator.SetTrigger("Dancing");
             StartCoroutine(stay10Seconds());
         }
     }
@@ -87,10 +81,6 @@ public class SceneManager : MonoBehaviour
         CreateScript.createAcc(11);
         CreateScript.field = this.field;
         CreateScript.create(field);
-      //  CreatScript.saturation = saturation;
-       // CreatScript.changeJacketColor();
-
-        
     }
 
     public void backward()
@@ -111,13 +101,6 @@ public class SceneManager : MonoBehaviour
         Debug.Log(field);
         ChangeImage(btnNum-1);
     }
-
-/*     public void input_name()
-    {
-        player_name = pname.text;
-        Debug.Log(player_name);
-    }
-*/
      public void ChangeImage(int index){
      if (buttons[index].image.sprite == onButton[index])
          buttons[index].image.sprite = offButton[index];
