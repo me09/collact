@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class CreateViewManager : MonoBehaviour
 {
+    public EventManager eventManager;
     public GameObject characterPrefab;
 
     private Transform characterTransform;
     private CharacterSettingController characterSettingController;
 
+    void OnEnable() {
+        eventManager.startEvent += createCharacter;
+    }
+
     public void createCharacter() {
+        Debug.Log("delegate?????");
         GameObject character = Instantiate(characterPrefab);
 
         characterTransform = character.GetComponent<Transform>();
+        characterTransform.SetParent(this.transform);
+
         characterSettingController = character.GetComponent<CharacterSettingController>();
 
-        characterTransform.position = new Vector3(1.2f, 4.3f, -4);
+        characterTransform.position = new Vector3(0, 0, 0);
 
         characterSettingController.setInitState();
     }

@@ -18,6 +18,8 @@ public class SceneManager : MonoBehaviour
     public Sprite[] offButton = new Sprite[7];
     public Sprite[] onButton = new Sprite[7];
 
+    public EventManager eventManager;
+
     public int current = 0;
 
     private float saturation;
@@ -33,8 +35,8 @@ public class SceneManager : MonoBehaviour
 
     void Awake()
     {
-        CreatedChar = GameObject.FindGameObjectWithTag("createdChar");
-        CreateScript = CreatedChar.GetComponent<CreateController>();
+        // CreatedChar = GameObject.FindGameObjectWithTag("createdChar");
+        // CreateScript = CreatedChar.GetComponent<CreateController>();
         buttons[0].image.sprite = onButton[0];
 
         scene4Image = background[0].GetComponent<Image>();
