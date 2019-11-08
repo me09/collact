@@ -45,9 +45,11 @@ public class SceneManager : MonoBehaviour
         canvases[current + 1].SetActive(true);
         canvases[current].SetActive(false);
         current += 1;
+
         if (current >= canvases.Length - 1) {
             StartCoroutine(stay10Seconds());
         }
+    
     }
 
     IEnumerator stay10Seconds()
@@ -56,7 +58,7 @@ public class SceneManager : MonoBehaviour
         canvases[current].SetActive(false);
         current = 0;
         canvases[0].SetActive(true);
-        field = 1;
+        field = 1;  
 
         ChangeImage(0);
     }
