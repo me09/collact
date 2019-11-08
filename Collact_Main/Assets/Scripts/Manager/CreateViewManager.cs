@@ -9,21 +9,28 @@ public class CreateViewManager : MonoBehaviour
 
     private Transform characterTransform;
     private CharacterSettingController characterSettingController;
+    private AnimationController characterAnimationController;
 
     void OnEnable() {
         eventManager.startEvent += createCharacter;
+        eventManager.fieldEvent += setField;
+        eventManager.saturationEvent += setSaturation;
+        eventManager.yearEvent += setAcc;
+
+        eventManager.animateEvent += startAnimation;
     }
 
     public void createCharacter() {
-        Debug.Log("delegate?????");
         GameObject character = Instantiate(characterPrefab);
 
         characterTransform = character.GetComponent<Transform>();
         characterTransform.SetParent(this.transform);
 
-        characterSettingController = character.GetComponent<CharacterSettingController>();
+        characterTransform.position = new Vector3(1.35f, 0, 26);
+        characterTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
-        characterTransform.position = new Vector3(0, 0, 0);
+        characterSettingController = character.GetComponent<CharacterSettingController>();
+        characterAnimationController = character.GetComponent<AnimationController>();
 
         characterSettingController.setInitState();
     }
@@ -38,5 +45,9 @@ public class CreateViewManager : MonoBehaviour
 
     public void setAcc(int year) {
         characterSettingController.setAcc(year);
+    }
+
+    public void startAnimation(string trigger) {
+        characterAnimationController.animate(trigger);
     }
 }

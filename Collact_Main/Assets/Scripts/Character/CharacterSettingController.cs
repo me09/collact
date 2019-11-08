@@ -13,6 +13,8 @@ public class CharacterSettingController : MonoBehaviour
     private float hue = 0, fixedSaturation = 1, flexibleSaturation = 0, value = 1;
     private Color mainColor;
 
+    private int currentField = 1, currentSaturation, currentYear = 1;
+
     public void setCharacterAttribute(int field ,float saturation, int year) {
         setInitState();
         body.SetActive(true);
@@ -33,10 +35,15 @@ public class CharacterSettingController : MonoBehaviour
         foreach (GameObject eachAcc in item) {
             eachAcc.SetActive(false);
         }
+
+        clothJacket.GetComponent<Renderer>().material.color = Color.HSVToRGB(hue, 0.5f, value);
     }
 
     public void setField(int field) {
-        switch (field)
+        head[currentField - 1].SetActive(false);
+        currentField = field;
+
+        switch (currentField)
         {
             case 1 :
                 hue = 352f / 360f;
@@ -74,20 +81,25 @@ public class CharacterSettingController : MonoBehaviour
         }
 
         mainColor =  Color.HSVToRGB(hue, fixedSaturation, value);
-        head[field - 1].SetActive(true);
-        head[field - 1].GetComponent<Renderer>().material.color = mainColor;
+        head[currentField - 1].SetActive(true);
+        head[currentField - 1].GetComponent<Renderer>().material.color = mainColor;
 
         clothShadow.GetComponent<Renderer>().material.color = mainColor;
     }
 
     public void setSaturation(float saturation) {
+        appearBody();
         flexibleSaturation = saturation;
         clothJacket.GetComponent<Renderer>().material.color = Color.HSVToRGB(hue, flexibleSaturation, value);
     }
 
     public void setAcc(int year) {
-        item[year - 1].SetActive(true);
-        item[year - 1].GetComponent<Renderer>().material.color = mainColor;
+        item[currentYear - 1].SetActive(false);
+
+        currentYear = year;
+
+        item[currentYear - 1].SetActive(true);
+        item[currentYear - 1].GetComponent<Renderer>().material.color = mainColor;
     }
 
     private void appearBody() {

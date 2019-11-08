@@ -9,10 +9,13 @@ public class AnimationController : MonoBehaviour
     void Awake() {
         animator = GetComponent<Animator>();
     }
+    
+    public void animate(string trigger) {
+        animator.SetTrigger(trigger);
+    }
 
     public void walk() {
         animator.SetTrigger("Walk");
-        Debug.Log("d");
     }
 
     public void hello() {
