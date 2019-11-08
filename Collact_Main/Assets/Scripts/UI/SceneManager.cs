@@ -59,9 +59,11 @@ public class SceneManager : MonoBehaviour
         canvases[current + 1].SetActive(true);
         canvases[current].SetActive(false);
         current += 1;
-        if(current == 3){
+        
+        if(current == 3)
+        {
             CreateScript.createMotion.SetTrigger("Hello");
-        }
+         }
         if (current == 4)
         {   
             CreateScript.createAcc(0);
@@ -69,9 +71,10 @@ public class SceneManager : MonoBehaviour
         }
         if (current == 5)
         {
-            CreateScript.createMotion.SetTrigger("Dancing");
-            StartCoroutine(stay10Seconds());
+             CreateScript.createMotion.SetTrigger("Dancing");
+             StartCoroutine(stay10Seconds());
         }
+    
     }
 
     IEnumerator stay10Seconds()
@@ -80,7 +83,7 @@ public class SceneManager : MonoBehaviour
         canvases[current].SetActive(false);
         current = 0;
         canvases[0].SetActive(true);
-        field = 1;
+        field = 1;  
 
         ChangeImage(0);
 
