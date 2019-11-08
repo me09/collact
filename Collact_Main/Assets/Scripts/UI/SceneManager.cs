@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
@@ -20,38 +19,25 @@ public class SceneManager : MonoBehaviour
 
     public int current = 0;
 
-//    public InputField pname;
-
-    private float saturation;
-    public int year = 0;
-
+    private float[] hue = {352f / 360f, 26f / 360f, 50f / 360f, 97f / 360f, 188f / 360f, 224f / 360f, 265f / 360f};
     private int field = 1;
-  //  private string player_name;
-    private CreateController CreateScript;
-    private GameObject CreatedChar;
+
 
     private Image scene4Image, scene5Image, scene6Image;
-
-    public DataManager dataManager;
 
 
     void Awake()
     {
-        CreatedChar = GameObject.FindGameObjectWithTag("createdChar");
-        CreateScript = CreatedChar.GetComponent<CreateController>();
         buttons[0].image.sprite = onButton[0];
 
         scene4Image = background[0].GetComponent<Image>();
         scene5Image = background[1].GetComponent<Image>();
         scene6Image = background[2].GetComponent<Image>();
-        year = -1;
 
         canvases[0].SetActive(true);
 
         for (int i = 1; i < 6; i++)
             canvases[i].SetActive(false);
-
-        dataManager.LoadUserData();
     }
 
     public void forward()
@@ -59,17 +45,7 @@ public class SceneManager : MonoBehaviour
         canvases[current + 1].SetActive(true);
         canvases[current].SetActive(false);
         current += 1;
-        if(current == 3){
-            CreateScript.createMotion.SetTrigger("Hello");
-        }
-        if (current == 4)
-        {   
-            CreateScript.createAcc(0);
-            CreateScript.createMotion.SetTrigger("Suprise");
-        }
-        if (current == 5)
-        {
-            CreateScript.createMotion.SetTrigger("Dancing");
+        if (current >= canvases.Length - 1) {
             StartCoroutine(stay10Seconds());
         }
     }
@@ -83,14 +59,6 @@ public class SceneManager : MonoBehaviour
         field = 1;
 
         ChangeImage(0);
-
-        CreateScript.createAcc(11);
-        CreateScript.field = this.field;
-        CreateScript.create(field);
-      //  CreatScript.saturation = saturation;
-       // CreatScript.changeJacketColor();
-
-        
     }
 
     public void backward()
@@ -106,18 +74,9 @@ public class SceneManager : MonoBehaviour
             buttons[field-1].image.sprite = offButton[field-1];
         }
         field = btnNum;
-        CreateScript.field = this.field;
-        CreateScript.create(field);
-        Debug.Log(field);
+
         ChangeImage(btnNum-1);
     }
-
-/*     public void input_name()
-    {
-        player_name = pname.text;
-        Debug.Log(player_name);
-    }
-*/
      public void ChangeImage(int index){
      if (buttons[index].image.sprite == onButton[index])
          buttons[index].image.sprite = offButton[index];
@@ -126,7 +85,6 @@ public class SceneManager : MonoBehaviour
      }
      scene4Image.sprite = backgroundImage_scene4[index];
      scene5Image.sprite = backgroundImage_scene5[index];
-     scene6Image.color = CreateScript.altColor;
-     
+     scene6Image.color = Color.HSVToRGB(hue[field - 1], 1, 1);
      }
 }

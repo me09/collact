@@ -7,28 +7,36 @@ public class WalkingController : MonoBehaviour
     public float moveSpeed;
     public float rotSpeed;
 
+    private bool isStart = false;
     private bool isWandering = false;
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
     private IEnumerator coroutine;
+
+    public void walk() {
+        isStart = true;
+    }
+
     void Update()
     {
-        if (!isWandering) {
-            coroutine = Wander();
-            StartCoroutine(coroutine);
-        }
-        if (isWalking) {
-            if (isInField()) {
-                transform.position += transform.forward * Time.deltaTime * moveSpeed;
-            } else {
-                isRotatingLeft = true;
+        if (isStart) {
+            if (!isWandering) {
+                    coroutine = Wander();
+                    StartCoroutine(coroutine);
             }
-        }
-        if (isRotatingLeft) {
-            transform.Rotate(transform.up * Time.deltaTime * rotSpeed);
-        } else if (isRotatingRight) {
-            transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
+            if (isWalking) {
+                if (isInField()) {
+                    transform.position += transform.forward * Time.deltaTime * moveSpeed;
+                } else {
+                    isRotatingLeft = true;
+                }
+            }
+            if (isRotatingLeft) {
+                transform.Rotate(transform.up * Time.deltaTime * rotSpeed);
+            } else if (isRotatingRight) {
+                transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
+            }
         }
     }
 
