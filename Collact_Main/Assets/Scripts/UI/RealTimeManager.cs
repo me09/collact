@@ -16,7 +16,7 @@ public class RealTimeManager : MonoBehaviour
 
     private Text yearText;
 
-    private int current_;
+    public int current_;
 
 
     public void Start()
@@ -31,16 +31,10 @@ public class RealTimeManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-            Debug.Log(saturation);
-            Debug.Log(year);
-            Debug.Log(current_);
-        // if(current_== 0)
-        // {
-        //     slider.value = (float)0.5;
-        //     slider2.value = 4;
-        //     CreateScript.saturation = saturation;
-        //     CreateScript.changeJacketColor();
-        // }
+            // Debug.Log(saturation);
+            // Debug.Log(year);
+            // Debug.Log(current_);
+            
         if (current_ == 3)
         {
             saturation = (slider.value) / 100;
@@ -51,7 +45,6 @@ public class RealTimeManager : MonoBehaviour
         {
             if(!yearText){
                 yearText = GameObject.Find("IdelYear").GetComponent<Text>();
-
             }
             year = (int)slider2.value;
             yearText.text = (year+1).ToString();

@@ -2223,6 +2223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 9352418}
   slider2: {fileID: 2058499928}
+  current_: 0
 --- !u!1 &651539156
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,6 +3972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 9352418}
   slider2: {fileID: 2058499928}
+  current_: 0
 --- !u!1 &1088678261
 GameObject:
   m_ObjectHideFlags: 0
