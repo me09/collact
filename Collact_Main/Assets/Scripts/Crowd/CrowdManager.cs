@@ -38,7 +38,7 @@ public class CrowdManager : MonoBehaviour
 
             manWalkingController.moveSpeed = Random.Range(1, 3) * 1f;
             manWalkingController.rotSpeed = Random.Range(50, 100) * 1f;
-            manSettingController.setCharacterAttribute((i % 7) + 1, Random.Range(0, 100) * 0.01f, (i % 10) + 1);
+            manSettingController.setCharacterAttribute((i % 7) + 1, Random.Range(0, 100) * 0.01f, (i % 10));
         }
     }
 
