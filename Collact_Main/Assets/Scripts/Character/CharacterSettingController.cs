@@ -94,12 +94,12 @@ public class CharacterSettingController : MonoBehaviour
     }
 
     public void setAcc(int year) {
-        item[currentYear - 1].SetActive(false);
+        item[currentYear].SetActive(false);
 
         currentYear = year;
 
-        item[currentYear - 1].SetActive(true);
-        item[currentYear - 1].GetComponent<Renderer>().material.color = mainColor;
+        item[currentYear].SetActive(true);
+        item[currentYear].GetComponent<Renderer>().material.color = mainColor;
     }
 
     private void appearBody() {

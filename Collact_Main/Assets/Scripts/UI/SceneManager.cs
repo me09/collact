@@ -23,8 +23,6 @@ public class SceneManager : MonoBehaviour
     public Sprite[] onButton = new Sprite[7];
 
     public int current = 0;
-    public Slider slider;
-    public Slider slider2;
 
     private float[] hue = {352f / 360f, 26f / 360f, 50f / 360f, 97f / 360f, 188f / 360f, 224f / 360f, 265f / 360f};
     private int field = 1;
@@ -63,18 +61,16 @@ public class SceneManager : MonoBehaviour
 
         if(current == 3){
             backgroundImgTmp.sprite = backgroundImage_scene4[field-1];
-            
         }
         if (current == 4)
         {   
             backgroundImgTmp.sprite = backgroundImage_scene5[field-1];
-
         }
 
         if (current >= canvases.Length - 1) {
             StartCoroutine(stay10Seconds());
             backgroundImgTmp.sprite = default;
-            backgroundImgTmp.color = CreateScript.altColor;
+            backgroundImgTmp.color = Color.HSVToRGB(hue[field - 1], 1, 1);;
         }
     
     }
