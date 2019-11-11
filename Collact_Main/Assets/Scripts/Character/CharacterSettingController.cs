@@ -13,6 +13,7 @@ public class CharacterSettingController : MonoBehaviour
     private float hue = 0, fixedSaturation = 1, flexibleSaturation = 0, value = 1;
     private Color mainColor;
 
+    public Material unlitColor;
     private int currentField = 1, currentSaturation, currentYear = 1;
 
     public void setCharacterAttribute(int field ,float saturation, int year) {
@@ -82,6 +83,8 @@ public class CharacterSettingController : MonoBehaviour
 
         mainColor =  Color.HSVToRGB(hue, fixedSaturation, value);
         head[currentField - 1].SetActive(true);
+        head[currentField - 1].GetComponent<Renderer>().material = unlitColor;
+
         head[currentField - 1].GetComponent<Renderer>().material.color = mainColor;
 
         clothShadow.GetComponent<Renderer>().material.color = mainColor;
@@ -99,6 +102,7 @@ public class CharacterSettingController : MonoBehaviour
         currentYear = year;
 
         item[currentYear].SetActive(true);
+        item[currentYear].GetComponent<Renderer>().material = unlitColor;
         item[currentYear].GetComponent<Renderer>().material.color = mainColor;
     }
 

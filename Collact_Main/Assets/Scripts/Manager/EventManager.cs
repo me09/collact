@@ -31,6 +31,7 @@ public class EventManager : MonoBehaviour
 
     public void touchedToSetYear(int year) {
         yearEvent(year);
+        
     }
 
     public void animate(string trigger) {

@@ -9,7 +9,7 @@ public class DisplayScript : MonoBehaviour
     {
         if(Display.displays.Length>1)
         {
-            Display.displays[1].Activate(834, 1194, 60);
+            Display.displays[1].Activate();
         }
     }
     // void mapCameraToDisplay()

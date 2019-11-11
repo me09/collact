@@ -7,6 +7,7 @@ public class slideManager : MonoBehaviour
 {
     public EventManager eventManager;
     public GameObject sceneBackground;
+    public GameObject yearText;
 
     public Slider slider;
 
@@ -25,5 +26,10 @@ public class slideManager : MonoBehaviour
 
     public void slideForYear() {
         eventManager.touchedToSetYear((int)slider.value);
+        if(slider.value == 9)
+            yearText.GetComponent<Text>().text = "10+";
+        else
+            yearText.GetComponent<Text>().text = (slider.value+1).ToString();
+
     }
 }
