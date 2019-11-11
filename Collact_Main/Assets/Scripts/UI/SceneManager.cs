@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour
 {
+    public GameObject blackScreenView;
     public GameObject[] canvases;
     private CanvasGroup fadeInCanvas;
     private CanvasGroup fadeOutCanvas;
@@ -58,8 +59,16 @@ public class SceneManager : MonoBehaviour
 
         canvases[current].SetActive(false);
         current += 1;
+        if(current == 1){
+            blackScreenView.SetActive(true);
+            StartCoroutine(FadeEffect.FadeCanvas(blackScreenView.GetComponent<CanvasGroup>(),0f,1f,1f));
+        }
+        if(current == 2){
+            StartCoroutine(FadeEffect.FadeCanvas(blackScreenView.GetComponent<CanvasGroup>(),1f,0f,1f));
+        }
 
         if(current == 3){
+            blackScreenView.SetActive(false);
             backgroundImgTmp.sprite = backgroundImage_scene4[field-1];
         }
         if (current == 4)
