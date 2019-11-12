@@ -6,6 +6,7 @@ public class CreateViewManager : MonoBehaviour
 {
     public EventManager eventManager;
     public GameObject characterPrefab;
+    public GameObject currentCreatedCharacter;
 
     private Transform characterTransform;
     private CharacterSettingController characterSettingController;
@@ -22,6 +23,7 @@ public class CreateViewManager : MonoBehaviour
 
     public void createCharacter() {
         GameObject character = Instantiate(characterPrefab);
+        currentCreatedCharacter = character;
 
         characterTransform = character.GetComponent<Transform>();
         characterTransform.SetParent(this.transform);
@@ -49,5 +51,9 @@ public class CreateViewManager : MonoBehaviour
 
     public void startAnimation(string trigger) {
         characterAnimationController.animate(trigger);
+    }
+
+    public GameObject getCurrentCreatedCharacter() {
+        return currentCreatedCharacter;
     }
 }

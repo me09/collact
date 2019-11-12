@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WalkingController : MonoBehaviour
 {
@@ -8,32 +9,31 @@ public class WalkingController : MonoBehaviour
     private float rotSpeed;
 
     private bool isStart = false;
+    private bool isGoingToCenter = false;
     private bool isWandering = false;
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
     private float MaxDistance = 1f;
+    private Vector3 destination = new Vector3(0, 0, 13f);
     RaycastHit hit;
-    private IEnumerator coroutine;
 
     public void walk() {
         isStart = true;
-        moveSpeed = Random.Range(1, 2) * 1f;
+        moveSpeed = Random.Range(0.5f, 1.5f);
         rotSpeed = Random.Range(10, 50) * 1f;
     }
 
     void Update()
     {
-        Debug.DrawRay(transform.position, transform.forward * MaxDistance, Color.blue, 0.3f);
-        if (Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance)) {
-            if (hit.transform.tag == "wall") {
-                transform.Rotate(transform.up * 180);
-            }
-        }
         if (isStart) {
+            if (Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance)) {
+                if (hit.transform.tag == "wall") {
+                    transform.Rotate(transform.up * 180);
+                }
+            }
             if (!isWandering) {
-                    coroutine = Wander();
-                    StartCoroutine(coroutine);
+                    StartCoroutine(wander());
             }
             if (isWalking) {
                 transform.position += transform.forward * Time.deltaTime * moveSpeed;
@@ -43,13 +43,14 @@ public class WalkingController : MonoBehaviour
             } else if (isRotatingRight) {
                 transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
             }
+        } else if (isGoingToCenter) {
+            transform.position += transform.forward * Time.deltaTime * moveSpeed;
         }
     }
 
-    IEnumerator Wander() {
+    IEnumerator wander() {
         int rotTime = Random.Range(1, 2);
-        int rotateWait = Random.Range(0, 1);
-        int rotateLorR = Random.Range(0, 3);
+        int rotateLorR = Random.Range(1, 2);
         int walkWait = Random.Range(0, 1);
         int walkTime = Random.Range(1, 5);
 
@@ -58,8 +59,6 @@ public class WalkingController : MonoBehaviour
         yield return new WaitForSeconds(walkWait);
         isWalking = true;
         yield return new WaitForSeconds(walkTime);
-        // isWalking = false;
-        // yield return new WaitForSeconds(rotateWait);
         if(rotateLorR == 1) {
             isRotatingRight = true;
             yield return new WaitForSeconds(rotTime);
@@ -72,4 +71,22 @@ public class WalkingController : MonoBehaviour
 
         isWandering = false;
     }
+
+    // public void goToCrowd() {
+    //     Debug.Log("?????");
+    //     isGoingToCenter = true;
+    //     moveSpeed = 2f;
+    //     StartCoroutine(goToCrowdRoutine());
+    // }
+
+    // IEnumerator goToCrowdRoutine() {
+    //     while (isGoingToCenter) {
+    //         float dist = Vector3.Distance(this.transform.position, destination);
+    //         if (dist <= 2f) {
+    //             isGoingToCenter = false;
+    //             walk();
+    //             yield return null;
+    //         }
+    //     }
+    // }
 }
