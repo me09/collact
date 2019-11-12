@@ -15,6 +15,7 @@ public class AnimationController : MonoBehaviour
     }
 
     public void walk() {
+        animator.enabled = true;
         animator.SetTrigger("Walk");
     }
 
@@ -28,5 +29,9 @@ public class AnimationController : MonoBehaviour
 
     public void dancing() {
         animator.SetTrigger("Dancing");
+    }
+
+    public void stopWalking() {
+        animator.enabled = false;
     }
 }

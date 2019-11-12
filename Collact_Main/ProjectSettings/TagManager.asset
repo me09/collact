@@ -4,41 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - head
-  - HeadPosition
-  - bag
-  - cloth_jacket
-  - cloth_shadow
-  - body
-  - HeadPositionTop
-  - createdChar
-  - backpack_position
-  - backpack_back_position
-  - crosshipback_position
-  - hipback_position
-  - laptopcase_position
-  - suitcase_position
-  - thingbag_position
-  - totebag_position
-  - spine2
-  - UICam
-  - neckbag_position
-  - carrier_position
-  - HeadPosition_clone
-  - acc1
-  - acc2
-  - acc3
-  - acc4
-  - acc5
-  - acc6
-  - acc7
-  - acc8
-  - acc9
-  - acc10
-  - Cloth_jacket_clone
-  - Cloth_shadow_clone
-  - Head_clone
-  - Acc_clone
+  - wall
   layers:
   - Default
   - TransparentFX
