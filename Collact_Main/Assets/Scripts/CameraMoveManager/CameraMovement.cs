@@ -28,12 +28,12 @@ public class CameraMovement : MonoBehaviour
         call_scenes_current();
         if(current_num==1)
         {
-            Camera.main.transform.position = new Vector3((float)4.77,(float)1.11,(float)6.13);
+            Camera.main.transform.position = new Vector3((float)4.77,(float)0.81,(float)6.13);
         }
         if(current_num==2)
         {
             x = (float)1.368;
-            y = (float)1.091;
+            y = (float)0.901;
             z = (float)26.55;
             transformvalue = new Vector3(x,y,z);
             Camera.main.transform.position = new Vector3(x,y,z);
