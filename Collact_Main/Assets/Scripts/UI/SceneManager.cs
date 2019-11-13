@@ -86,22 +86,17 @@ public class SceneManager : MonoBehaviour
 
     IEnumerator stay10Seconds()
     {
-        
-        Debug.Log("1");
         yield return new WaitForSeconds(7);
-        Debug.Log("2");
         canvases[current].SetActive(false);
         current = 0;
         canvases[0].SetActive(true);
         yield return new WaitForSeconds(3);
-        Debug.Log("3");
 
         ChangeImage(field-1);
         field = 1;
         backgroundImgTmp.sprite = default;
         backgroundImgTmp.color = Color.white; 
         ChangeImage(0);
-
     }
 
     public void backward()
