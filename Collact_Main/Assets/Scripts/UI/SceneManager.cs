@@ -54,7 +54,7 @@ public class SceneManager : MonoBehaviour
         canvases[current + 1].SetActive(true);
         fadeInCanvas = canvases[current + 1].GetComponent<CanvasGroup>();
         fadeOutCanvas = canvases[current].GetComponent<CanvasGroup>();
-        StartCoroutine(FadeEffect.FadeCanvas(fadeInCanvas, 0f, 1f, 1f));
+        StartCoroutine(FadeEffect.FadeCanvas(fadeInCanvas, 0f, 1f, (current + 1) % 5 * 1f));
 
 
         canvases[current].SetActive(false);
@@ -87,10 +87,14 @@ public class SceneManager : MonoBehaviour
     IEnumerator stay10Seconds()
     {
         
-        yield return new WaitForSeconds(10);
+        Debug.Log("1");
+        yield return new WaitForSeconds(7);
+        Debug.Log("2");
         canvases[current].SetActive(false);
         current = 0;
         canvases[0].SetActive(true);
+        yield return new WaitForSeconds(3);
+        Debug.Log("3");
 
         ChangeImage(field-1);
         field = 1;

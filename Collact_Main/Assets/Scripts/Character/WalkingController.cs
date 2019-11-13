@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class WalkingController : MonoBehaviour
 {
@@ -15,10 +14,10 @@ public class WalkingController : MonoBehaviour
     private bool isRotatingRight = false;
     private bool isWalking = false;
     private float MaxDistance = 1f;
-    private Vector3 destination = new Vector3(0, 0, 13f);
+    private Vector3 destination = new Vector3(5, 0, -2.5f);
     RaycastHit hit;
 
-    public void walk() {
+    public void startWalk() {
         isStart = true;
         moveSpeed = Random.Range(0.5f, 1.5f);
         rotSpeed = Random.Range(10, 50) * 1f;
@@ -44,7 +43,15 @@ public class WalkingController : MonoBehaviour
                 transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
             }
         } else if (isGoingToCenter) {
-            transform.position += transform.forward * Time.deltaTime * moveSpeed;
+            Vector3 targetDirection = destination - transform.position;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, rotSpeed * Time.deltaTime, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+            transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+
+            if (isInCrowd()) {
+                isGoingToCenter = false;
+                startWalk();
+            }
         }
     }
 
@@ -72,21 +79,17 @@ public class WalkingController : MonoBehaviour
         isWandering = false;
     }
 
-    // public void goToCrowd() {
-    //     Debug.Log("?????");
-    //     isGoingToCenter = true;
-    //     moveSpeed = 2f;
-    //     StartCoroutine(goToCrowdRoutine());
-    // }
+    public void goToCenter() {
+        isGoingToCenter = true;
+        moveSpeed = 1.2f;
+        rotSpeed = 5f;
+    }
 
-    // IEnumerator goToCrowdRoutine() {
-    //     while (isGoingToCenter) {
-    //         float dist = Vector3.Distance(this.transform.position, destination);
-    //         if (dist <= 2f) {
-    //             isGoingToCenter = false;
-    //             walk();
-    //             yield return null;
-    //         }
-    //     }
-    // }
+    private bool isInCrowd() {
+        bool result = false;
+        if (transform.position.x > 4 && transform.position.z < 7) {
+            result = true;
+        }
+        return result;
+    }
 }

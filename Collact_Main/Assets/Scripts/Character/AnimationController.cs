@@ -31,7 +31,7 @@ public class AnimationController : MonoBehaviour
         animator.SetTrigger("Dancing");
     }
 
-    public void stopWalking() {
+    public void stop() {
         animator.enabled = false;
     }
 }
