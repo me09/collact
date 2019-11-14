@@ -19,8 +19,8 @@ public class WalkingController : MonoBehaviour
 
     public void startWalk() {
         isStart = true;
-        // moveSpeed = Random.Range(0.5f, 1.5f);
-        moveSpeed = 1f;
+        moveSpeed = Random.Range(0.5f, 1f);
+        // moveSpeed = 1f;
         rotSpeed = Random.Range(10, 50) * 1f;
     }
 
@@ -92,5 +92,9 @@ public class WalkingController : MonoBehaviour
             result = true;
         }
         return result;
+    }
+
+    public float getMoveSpeed() {
+        return moveSpeed;
     }
 }

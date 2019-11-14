@@ -26,8 +26,8 @@ public class CrowdManager : MonoBehaviour
             manTransform = man.GetComponent<Transform>();
             manWalkingController = man.GetComponent<WalkingController>();
             manSettingController = man.GetComponent<CharacterSettingController>();
-            man.GetComponent<AnimationController>().walk();
             manWalkingController.startWalk();
+            man.GetComponent<AnimationController>().walk(manWalkingController.getMoveSpeed());
             manTransform.SetParent(this.transform);
             
             int ranX, ranZ;
