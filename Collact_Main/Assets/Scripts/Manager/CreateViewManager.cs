@@ -28,7 +28,7 @@ public class CreateViewManager : MonoBehaviour
         characterTransform = character.GetComponent<Transform>();
         characterTransform.SetParent(this.transform);
 
-        characterTransform.position = new Vector3(1.35f, 0, 26);
+        characterTransform.position = new Vector3(1.35f, 0, 22);
         characterTransform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
         characterSettingController = character.GetComponent<CharacterSettingController>();

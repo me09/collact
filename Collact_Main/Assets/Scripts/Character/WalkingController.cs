@@ -14,7 +14,7 @@ public class WalkingController : MonoBehaviour
     private bool isRotatingRight = false;
     private bool isWalking = false;
     private float MaxDistance = 1f;
-    private Vector3 destination = new Vector3(5, 0, -2.5f);
+    private Vector3 destination = new Vector3(2, 0, 14f);
     RaycastHit hit;
 
     public void startWalk() {
@@ -88,7 +88,7 @@ public class WalkingController : MonoBehaviour
 
     private bool isInCrowd() {
         bool result = false;
-        if (transform.position.x > 4 && transform.position.z < 7) {
+        if (transform.position.x > 1 && transform.position.z < 17) {
             result = true;
         }
         return result;

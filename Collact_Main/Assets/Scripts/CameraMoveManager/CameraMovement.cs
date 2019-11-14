@@ -26,21 +26,17 @@ public class CameraMovement : MonoBehaviour
     private void FixedUpdate()
     {   
         call_scenes_current();
-        if(current_num==1)
-        {
-            Camera.main.transform.position = new Vector3((float)4.77,(float)0.81,(float)6.13);
-        }
         if(current_num==2)
         {
             x = (float)1.368;
             y = (float)0.901;
-            z = (float)26.55;
+            z = (float)22.55;
             transformvalue = new Vector3(x,y,z);
             Camera.main.transform.position = new Vector3(x,y,z);
         }
         if(current_num == 3 || current_num == 4)
         {  
-            extransformvalue = new Vector3(x,(float)0.80,(float)27.15);
+            extransformvalue = new Vector3(x,(float)0.65,(float)23.15);
             transform.position = Vector3.MoveTowards(transform.position,extransformvalue,Time.deltaTime*speed);
         }
         if(current_num ==5)
@@ -51,8 +47,8 @@ public class CameraMovement : MonoBehaviour
         {
             if(extransformvalue!= transformvalue)
             {
-                extransformvalue = new Vector3((float)4.77,(float)1.11,(float)6.13);
-                transform.position = Vector3.MoveTowards(transform.position,extransformvalue,Time.deltaTime*(float)1.5*speed);
+                extransformvalue = new Vector3((float)1.77,(float)1,(float)16.13);
+                transform.position = Vector3.MoveTowards(transform.position,extransformvalue,Time.deltaTime*(float)speed);
             }
         }
     }
