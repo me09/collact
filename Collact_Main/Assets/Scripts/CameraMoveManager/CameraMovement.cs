@@ -38,7 +38,7 @@ public class CameraMovement : MonoBehaviour
             transformvalue = new Vector3(x,y,z);
             Camera.main.transform.position = new Vector3(x,y,z);
         }
-        if(current_num==3)
+        if(current_num == 3 || current_num == 4)
         {  
             extransformvalue = new Vector3(x,(float)0.80,(float)27.15);
             transform.position = Vector3.MoveTowards(transform.position,extransformvalue,Time.deltaTime*speed);
