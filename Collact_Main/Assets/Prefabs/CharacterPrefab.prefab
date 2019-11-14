@@ -1065,7 +1065,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cdec6807cbf0746d2b99737744335430, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1641,8 +1641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244659768690c4f62be229b3077d8ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  rotSpeed: 100
 --- !u!1 &8295363954298221929
 GameObject:
   m_ObjectHideFlags: 0

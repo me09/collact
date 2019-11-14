@@ -4,46 +4,60 @@ using UnityEngine;
 
 public class WalkingController : MonoBehaviour
 {
-    public float moveSpeed;
-    public float rotSpeed;
+    private float moveSpeed;
+    private float rotSpeed;
 
     private bool isStart = false;
+    private bool isGoingToCenter = false;
     private bool isWandering = false;
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
-    private IEnumerator coroutine;
+    private float MaxDistance = 1f;
+    private Vector3 destination = new Vector3(5, 0, -2.5f);
+    RaycastHit hit;
 
-    public void walk() {
+    public void startWalk() {
         isStart = true;
+        moveSpeed = Random.Range(0.5f, 1.5f);
+        rotSpeed = Random.Range(10, 50) * 1f;
     }
 
     void Update()
     {
         if (isStart) {
+            if (Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance)) {
+                if (hit.transform.tag == "wall") {
+                    transform.Rotate(transform.up * 180);
+                }
+            }
             if (!isWandering) {
-                    coroutine = Wander();
-                    StartCoroutine(coroutine);
+                    StartCoroutine(wander());
             }
             if (isWalking) {
-                if (isInField()) {
-                    transform.position += transform.forward * Time.deltaTime * moveSpeed;
-                } else {
-                    isRotatingLeft = true;
-                }
+                transform.position += transform.forward * Time.deltaTime * moveSpeed;
             }
             if (isRotatingLeft) {
                 transform.Rotate(transform.up * Time.deltaTime * rotSpeed);
             } else if (isRotatingRight) {
                 transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
             }
+        } else if (isGoingToCenter) {
+            Vector3 targetDirection = destination - transform.position;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, rotSpeed * Time.deltaTime, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+            transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+
+            if (isInCrowd()) {
+                isGoingToCenter = false;
+                startWalk();
+            }
         }
     }
 
-    IEnumerator Wander() {
+    IEnumerator wander() {
         int rotTime = Random.Range(1, 2);
-        int rotateWait = Random.Range(0, 1);
-        int rotateLorR = Random.Range(0, 3);
+        int rotateLorR = Random.Range(1, 2);
         int walkWait = Random.Range(0, 1);
         int walkTime = Random.Range(1, 5);
 
@@ -52,8 +66,6 @@ public class WalkingController : MonoBehaviour
         yield return new WaitForSeconds(walkWait);
         isWalking = true;
         yield return new WaitForSeconds(walkTime);
-        //isWalking = false;
-        //yield return new WaitForSeconds(rotateWait);
         if(rotateLorR == 1) {
             isRotatingRight = true;
             yield return new WaitForSeconds(rotTime);
@@ -67,13 +79,17 @@ public class WalkingController : MonoBehaviour
         isWandering = false;
     }
 
-    private bool isInField() {
-        float testX = transform.position.x + Time.deltaTime * moveSpeed;
-        float textZ = transform.position.z + Time.deltaTime * moveSpeed;
-        if (testX < 20 && -10 < testX && textZ < 20 && -10 < textZ) {
-            return true;
-        } else {
-            return false;
+    public void goToCenter() {
+        isGoingToCenter = true;
+        moveSpeed = 1.2f;
+        rotSpeed = 5f;
+    }
+
+    private bool isInCrowd() {
+        bool result = false;
+        if (transform.position.x > 4 && transform.position.z < 7) {
+            result = true;
         }
+        return result;
     }
 }
