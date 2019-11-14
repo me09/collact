@@ -19,7 +19,8 @@ public class WalkingController : MonoBehaviour
 
     public void startWalk() {
         isStart = true;
-        moveSpeed = Random.Range(0.5f, 1.5f);
+        // moveSpeed = Random.Range(0.5f, 1.5f);
+        moveSpeed = 1f;
         rotSpeed = Random.Range(10, 50) * 1f;
     }
 
