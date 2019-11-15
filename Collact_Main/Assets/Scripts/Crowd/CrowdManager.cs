@@ -26,18 +26,16 @@ public class CrowdManager : MonoBehaviour
             manTransform = man.GetComponent<Transform>();
             manWalkingController = man.GetComponent<WalkingController>();
             manSettingController = man.GetComponent<CharacterSettingController>();
-            man.GetComponent<AnimationController>().walk();
             manWalkingController.startWalk();
+            man.GetComponent<AnimationController>().walk(manWalkingController.getMoveSpeed());
             manTransform.SetParent(this.transform);
             
             int ranX, ranZ;
             ranX = Random.Range(0, 10);
-            ranZ = Random.Range(0, 10);
+            ranZ = Random.Range(10, 20);
             manTransform.position = new Vector3(ranX, 0, ranZ - 5);
             manTransform.rotation = Quaternion.Euler(manTransform.up * Random.Range(0, 359));
 
-            // manWalkingController.moveSpeed = Random.Range(1, 2) * 1f;
-            // manWalkingController.rotSpeed = Random.Range(10, 50) * 1f;
             manSettingController.setCharacterAttribute((i % 7) + 1, Random.Range(0, 100) * 0.01f, (i % 10));
         }
     }

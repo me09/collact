@@ -14,8 +14,9 @@ public class AnimationController : MonoBehaviour
         animator.SetTrigger(trigger);
     }
 
-    public void walk() {
+    public void walk(float moveSpeed) {
         animator.enabled = true;
+        animator.speed = moveSpeed;
         animator.SetTrigger("Walk");
     }
 
