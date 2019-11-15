@@ -14,6 +14,10 @@ public class CreateViewManager : MonoBehaviour
 
     void OnEnable() {
         eventManager.startEvent += createCharacter;
+        eventManager.cancelToCreateEvent += cancelCreate;
+        eventManager.backToSetFieldEvent += backToSetField;
+        eventManager.backToSetSaturationEvent += backToSetSaturation;
+
         eventManager.fieldEvent += setField;
         eventManager.saturationEvent += setSaturation;
         eventManager.yearEvent += setAcc;
@@ -55,5 +59,17 @@ public class CreateViewManager : MonoBehaviour
 
     public GameObject getCurrentCreatedCharacter() {
         return currentCreatedCharacter;
+    }
+
+    public void cancelCreate() {
+        Destroy(currentCreatedCharacter);
+    }
+
+    public void backToSetField() {
+        characterSettingController.disappearBody();
+    }
+
+    public void backToSetSaturation() {
+        characterSettingController.disappearAcc();
     }
 }

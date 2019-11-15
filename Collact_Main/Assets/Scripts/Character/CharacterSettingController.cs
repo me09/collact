@@ -33,6 +33,7 @@ public class CharacterSettingController : MonoBehaviour
         foreach (GameObject eachHead in head) {
             eachHead.SetActive(false);
         }
+        setField(1);
         foreach (GameObject eachAcc in item) {
             eachAcc.SetActive(false);
         }
@@ -108,5 +109,14 @@ public class CharacterSettingController : MonoBehaviour
 
     private void appearBody() {
         body.SetActive(true);
+    }
+
+    public void disappearBody() {
+        body.SetActive(false);
+        disappearAcc();
+    }
+
+    public void disappearAcc() {
+        item[currentYear].SetActive(false);
     }
 }

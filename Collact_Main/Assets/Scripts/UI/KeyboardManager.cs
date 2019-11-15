@@ -19,4 +19,9 @@ public class KeyboardManager : MonoBehaviour
         player_name = pname.text;
         Debug.Log(player_name);
     }
+
+    public string getName() {
+        Debug.Log(player_name);
+        return player_name;
+    }
 }

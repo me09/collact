@@ -12,13 +12,28 @@ public delegate void Animate_EventHandler(string trigger);
 public class EventManager : MonoBehaviour
 {
     public event Touch_EventHandler startEvent;
+    public event Touch_EventHandler cancelToCreateEvent;
+    public event Touch_EventHandler backToSetFieldEvent;
+    public event Touch_EventHandler backToSetSaturationEvent;
     public event SetField_EventHandler fieldEvent;
     public event SetSaturation_EventHandler saturationEvent;
     public event SetYear_EventHandler yearEvent;
     public event Animate_EventHandler animateEvent;
+
     public void touchedToStart() {
-        Debug.Log("start To Create");
         startEvent();
+    }
+
+    public void touchedToCancel() {
+        cancelToCreateEvent();
+    }
+
+    public void touchedBackToSetField() {
+        backToSetFieldEvent();
+    }
+    
+    public void touchedBackToSetSaturation() {
+        backToSetSaturationEvent();
     }
 
     public void touchedToSetField(int field) {
