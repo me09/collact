@@ -39,6 +39,5 @@ public class CrowdManager : MonoBehaviour
             manSettingController.setCharacterAttribute((i % 7) + 1, Random.Range(0, 100) * 0.01f, (i % 10));
         }
     }
-
-    
+  
 }

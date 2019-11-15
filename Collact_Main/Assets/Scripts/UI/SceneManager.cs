@@ -74,7 +74,6 @@ public class SceneManager : MonoBehaviour
             StartCoroutine(stay10Seconds());
             backgroundImgTmp.sprite = null;
         }
-    
     }
 
     IEnumerator stay10Seconds()
