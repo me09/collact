@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class WallFadeout : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public EventManager eventManager;
+    private Animator wallanim;
 
-    public Animator wallanim;
-    private int current_num;
-    void Start()
-    {
+    void OnEnable() {
+        eventManager.changeSceneEvent += setWall;
+    }
+
+    void OnDisable() {
+        eventManager.changeSceneEvent -= setWall;
+    }
+
+    void Start() {
         wallanim = GetComponent<Animator>();
     }
 
-    private void call_scenes_current()
-    {
-        SceneManager scenes_ = GameObject.Find("Scenes").GetComponent<SceneManager>();
-        current_num = scenes_.current;
-    }
-    private void FixedUpdate()
-    {
-        call_scenes_current();
-        if(current_num == 0)
-        {
-            wallanim.Play("WallFadeout");
-        }
-        else
-        {
+    private void setWall(int currentScene) {
+        if (currentScene == 5) {
+            StartCoroutine(delay());
+        } else {
             wallanim.Rebind();
         }
+    }
+
+    IEnumerator delay() {
+        yield return new WaitForSeconds(7);
+        wallanim.Play("WallFadeout");
     }
 }

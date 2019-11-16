@@ -11,7 +11,7 @@ public class SceneManager : MonoBehaviour
     private CanvasGroup fadeInCanvas;
     private CanvasGroup fadeOutCanvas;
     public Button[] buttons = new Button[7];
-
+    public GameObject[] nxtButtons;
     public GameObject[] background = new GameObject[3];
     public Image backgroundImgTmp;
     public Sprite[] backgroundImage_scene4 = new Sprite[7];
@@ -49,7 +49,11 @@ public class SceneManager : MonoBehaviour
         canvases[current + 1].SetActive(true);
         fadeInCanvas = canvases[current + 1].GetComponent<CanvasGroup>();
         fadeOutCanvas = canvases[current].GetComponent<CanvasGroup>();
-        StartCoroutine(FadeEffect.FadeCanvas(fadeInCanvas, 0f, 1f, (current + 1) % 5 * 1f));
+        if (current + 1 == 3 || current + 1 == 4) {
+            StartCoroutine(FadeEffect.FadeCanvas(fadeInCanvas, 0f, 1f, (current + 1) % 5 * 1f, nxtButtons[current - 2]));
+        } else {
+            StartCoroutine(FadeEffect.FadeCanvas(fadeInCanvas, 0f, 1f, (current + 1) % 5 * 1f));
+        }
 
 
         canvases[current].SetActive(false);
@@ -87,6 +91,10 @@ public class SceneManager : MonoBehaviour
         setDefaultField();
     }
 
+    IEnumerator staySeconds(int delay) {
+        yield return new WaitForSeconds(delay);
+    }
+
     public void backward()
     {
         canvases[current].SetActive(false);
@@ -94,29 +102,16 @@ public class SceneManager : MonoBehaviour
         current -= 1;
         if (current == 0) {
             StartCoroutine(FadeEffect.FadeCanvas(blackScreenView.GetComponent<CanvasGroup>(),1f,0f,1f));
-        }
-        if(current == 1) {
+        } else if (current == 1) {
             blackScreenView.SetActive(true);
             StartCoroutine(FadeEffect.FadeCanvas(blackScreenView.GetComponent<CanvasGroup>(),0f,1f,1f));
+        } else if (current == 2 || current == 3) {
+            nxtButtons[current - 2].SetActive(false);
         }
-    }
-
-    public void head_color_button(int btnNum)
-    {
-        if(btnNum != field) {
-            buttons[field-1].image.sprite = offButton[field-1];
-        }
-        field = btnNum;
-
-        ChangeImage(btnNum-1);
     }
 
     public void ChangeImage(int index) {
-        int tempIndex = 0;
-        foreach(Button fieldButton in buttons) {
-            fieldButton.image.sprite = offButton[tempIndex];
-            tempIndex += 1;
-        }
+        setAllButtonOff();
 
         buttons[index - 1].image.sprite = onButton[index - 1];
 
@@ -128,18 +123,22 @@ public class SceneManager : MonoBehaviour
     }
 
     public void setDefaultField() {
+        setAllButtonOff();
+        ChangeImage(1);
+        backgroundImgTmp.sprite = null;
+    }
+
+    private void setAllButtonOff() {
         int index = 0;
         foreach(Button fieldButton in buttons) {
             fieldButton.image.sprite = offButton[index];
             index += 1;
         }
-        ChangeImage(1);
-        backgroundImgTmp.sprite = null;
     }
 }
 
 public class FadeEffect : MonoBehaviour {
-    public static IEnumerator FadeCanvas(CanvasGroup canvas, float startAlpha, float endAlpha, float duration)
+    public static IEnumerator FadeCanvas(CanvasGroup canvas, float startAlpha, float endAlpha, float duration, GameObject nxtButton = null)
     {
          // keep track of when the fading started, when it should finish, and how long it has been running&lt;/p&gt; &lt;p&gt;&a
         var startTime = Time.time;
@@ -160,6 +159,9 @@ public class FadeEffect : MonoBehaviour {
             }
 
             yield return new WaitForEndOfFrame(); // wait for the next frame before continuing the loop
+        }
+        if (nxtButton != null) {
+            nxtButton.SetActive(true);
         }
         canvas.alpha = endAlpha; // force the alpha to the end alpha before finishing – this is here to mitigate any rounding errors, e.g. leaving the alpha at 0.01 instead of 0
     }
