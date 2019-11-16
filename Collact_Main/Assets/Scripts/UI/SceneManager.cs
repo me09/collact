@@ -124,6 +124,11 @@ public class SceneManager : MonoBehaviour
 
     public void setDefaultField() {
         setAllButtonOff();
+
+        foreach(GameObject nxtButton in nxtButtons) {
+            nxtButton.SetActive(false);
+        }
+        
         ChangeImage(1);
         backgroundImgTmp.sprite = null;
     }
