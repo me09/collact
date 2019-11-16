@@ -8,12 +8,15 @@ public class ViewManager : MonoBehaviour
     public GameObject crowdView;
 
     private Transform crowdViewTransform;
+    private CrowdManager crowdManager;
 
     void Awake() {
         crowdViewTransform = crowdView.GetComponent<Transform>();
+        crowdManager = crowdView.GetComponent<CrowdManager>();
     }
 
     public void setToCrowdView() {
+        crowdManager.addCrowd(createViewManager.getCurrentCreatedCharacter());
         createViewManager.getCurrentCreatedCharacter().GetComponent<Transform>().SetParent(crowdViewTransform);
     }
 }

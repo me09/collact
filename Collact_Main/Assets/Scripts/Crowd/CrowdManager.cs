@@ -9,19 +9,23 @@ public class CrowdManager : MonoBehaviour
 {
     public GameObject manPrefab;
 
-    private List<GameObject> mans;
+    private GameObject[] mans;
     private Transform manTransform;
     private WalkingController manWalkingController;
     private CharacterSettingController manSettingController;
 
-    private int pooledAmount = 100;
+    private GameObject currentIndexCharacter;
+    private int pooledAmount = 50;
+    private int maxAmount = 100;
+    private int currentIndex = 0;
 
     void Start()
     {
-        mans = new List<GameObject>();
+        mans = new GameObject[maxAmount];
 
         for (int i = 0; i < pooledAmount; i++) {
             GameObject man = Instantiate(manPrefab);
+            mans[i] = man;
 
             manTransform = man.GetComponent<Transform>();
             manWalkingController = man.GetComponent<WalkingController>();
@@ -38,6 +42,17 @@ public class CrowdManager : MonoBehaviour
 
             manSettingController.setCharacterAttribute((i % 7) + 1, Random.Range(0, 100) * 0.01f, (i % 10));
         }
+
+        currentIndexCharacter = mans[currentIndex];
+    }
+
+    public void addCrowd(GameObject newCharacter) {
+        if (mans[currentIndex] != null) {
+            Destroy(currentIndexCharacter);
+        }
+        mans[currentIndex] = newCharacter;
+        currentIndex = currentIndex + 1 < 100 ? currentIndex + 1 : 0;
+        currentIndexCharacter = mans[currentIndex];
     }
   
 }

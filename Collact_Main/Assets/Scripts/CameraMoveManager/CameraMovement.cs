@@ -39,7 +39,10 @@ public class CameraMovement : MonoBehaviour
     }
 
     private void setCamera(int currentScene) {
-        if (currentScene == 2) {
+        if (currentScene == 0) {
+            extransformvalue = new Vector3((float)1.77,(float)1,(float)16.13);
+            Camera.main.transform.position = extransformvalue;
+        } else if (currentScene == 2) {
             isNeedToMove = false;
             x = (float)1.368;
             y = (float)0.901;
