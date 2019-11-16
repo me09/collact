@@ -13,9 +13,7 @@ public class SceneManager : MonoBehaviour
     public Button[] buttons = new Button[7];
 
     public GameObject[] background = new GameObject[3];
-
-    public GameObject backgroundTmp;
-    private Image backgroundImgTmp;
+    public Image backgroundImgTmp;
     public Sprite[] backgroundImage_scene4 = new Sprite[7];
 
     public Sprite[] backgroundImage_scene5 = new Sprite[7];
@@ -40,9 +38,6 @@ public class SceneManager : MonoBehaviour
         scene5Image = background[1].GetComponent<Image>();
         scene6Image = background[2].GetComponent<Image>();
 
-        backgroundImgTmp = backgroundTmp.GetComponent<Image>();
-
-
         canvases[0].SetActive(true);
 
         for (int i = 1; i < 6; i++)
@@ -59,29 +54,26 @@ public class SceneManager : MonoBehaviour
 
         canvases[current].SetActive(false);
         current += 1;
-        if(current == 1){
+        if(current == 1) {
             blackScreenView.SetActive(true);
             StartCoroutine(FadeEffect.FadeCanvas(blackScreenView.GetComponent<CanvasGroup>(),0f,1f,1f));
         }
-        if(current == 2){
+        if(current == 2) {
             StartCoroutine(FadeEffect.FadeCanvas(blackScreenView.GetComponent<CanvasGroup>(),1f,0f,1f));
         }
 
-        if(current == 3){
+        if(current == 3) {
             blackScreenView.SetActive(false);
             backgroundImgTmp.sprite = backgroundImage_scene4[field-1];
         }
-        if (current == 4)
-        {   
+        if (current == 4) {   
             backgroundImgTmp.sprite = backgroundImage_scene5[field-1];
         }
 
         if (current >= canvases.Length - 1) {
             StartCoroutine(stay10Seconds());
-            backgroundImgTmp.sprite = default;
-            backgroundImgTmp.color = Color.HSVToRGB(hue[field - 1], 1, 1);;
+            backgroundImgTmp.sprite = null;
         }
-    
     }
 
     IEnumerator stay10Seconds()
@@ -92,67 +84,82 @@ public class SceneManager : MonoBehaviour
         canvases[0].SetActive(true);
         yield return new WaitForSeconds(3);
 
-        ChangeImage(field-1);
-        field = 1;
-        backgroundImgTmp.sprite = default;
-        backgroundImgTmp.color = Color.white; 
-        ChangeImage(0);
+        setDefaultField();
     }
 
     public void backward()
     {
         canvases[current].SetActive(false);
-        // StartCoroutine(FadeEffect.FadeCanvas(canvas[current], 1f, 0f, 2f));
         canvases[current - 1].SetActive(true);
         current -= 1;
+        if (current == 0) {
+            StartCoroutine(FadeEffect.FadeCanvas(blackScreenView.GetComponent<CanvasGroup>(),1f,0f,1f));
+        }
+        if(current == 1) {
+            blackScreenView.SetActive(true);
+            StartCoroutine(FadeEffect.FadeCanvas(blackScreenView.GetComponent<CanvasGroup>(),0f,1f,1f));
+        }
     }
 
     public void head_color_button(int btnNum)
     {
-        if(btnNum != field){
+        if(btnNum != field) {
             buttons[field-1].image.sprite = offButton[field-1];
         }
         field = btnNum;
 
         ChangeImage(btnNum-1);
     }
-     public void ChangeImage(int index){
-     if (buttons[index].image.sprite == onButton[index])
-         buttons[index].image.sprite = offButton[index];
-     else {
-         buttons[index].image.sprite = onButton[index];
-     }
-     scene4Image.sprite = backgroundImage_scene4[index];
-     scene5Image.sprite = backgroundImage_scene5[index];
-     scene6Image.color = Color.HSVToRGB(hue[field - 1], 1, 1);
-     }
+
+    public void ChangeImage(int index) {
+        int tempIndex = 0;
+        foreach(Button fieldButton in buttons) {
+            fieldButton.image.sprite = offButton[tempIndex];
+            tempIndex += 1;
+        }
+
+        buttons[index - 1].image.sprite = onButton[index - 1];
+
+        field = index;
+
+        scene4Image.sprite = backgroundImage_scene4[index - 1];
+        scene5Image.sprite = backgroundImage_scene5[index - 1];
+        scene6Image.color = Color.HSVToRGB(hue[field - 1], 1, 1);
+    }
+
+    public void setDefaultField() {
+        int index = 0;
+        foreach(Button fieldButton in buttons) {
+            fieldButton.image.sprite = offButton[index];
+            index += 1;
+        }
+        ChangeImage(1);
+        backgroundImgTmp.sprite = null;
+    }
 }
 
 public class FadeEffect : MonoBehaviour {
     public static IEnumerator FadeCanvas(CanvasGroup canvas, float startAlpha, float endAlpha, float duration)
     {
          // keep track of when the fading started, when it should finish, and how long it has been running&lt;/p&gt; &lt;p&gt;&a
-         var startTime = Time.time;
-         var endTime = Time.time + duration;
-         var elapsedTime = 0f;
+        var startTime = Time.time;
+        var endTime = Time.time + duration;
+        var elapsedTime = 0f;
  
          // set the canvas to the start alpha – this ensures that the canvas is ‘reset’ if you fade it multiple times
-         canvas.alpha = startAlpha;
+        canvas.alpha = startAlpha;
          // loop repeatedly until the previously calculated end time
-         while (Time.time <= endTime)
-         {
-             elapsedTime = Time.time - startTime; // update the elapsed time
-             var percentage = 1/(duration/elapsedTime); // calculate how far along the timeline we are
-             if (startAlpha > endAlpha) // if we are fading out/down 
-             {
-                  canvas.alpha = startAlpha - percentage; // calculate the new alpha
-             }
-             else // if we are fading in/up
-             {
-                 canvas.alpha = startAlpha + percentage; // calculate the new alpha
-             }
- 
-             yield return new WaitForEndOfFrame(); // wait for the next frame before continuing the loop
+        while (Time.time <= endTime)
+        {
+            elapsedTime = Time.time - startTime; // update the elapsed time
+            var percentage = 1/(duration/elapsedTime); // calculate how far along the timeline we are
+            if (startAlpha > endAlpha) { // if we are fading out/down 
+                canvas.alpha = startAlpha - percentage; // calculate the new alpha
+            } else { // if we are fading in/up
+                canvas.alpha = startAlpha + percentage; // calculate the new alpha
+            }
+
+            yield return new WaitForEndOfFrame(); // wait for the next frame before continuing the loop
         }
         canvas.alpha = endAlpha; // force the alpha to the end alpha before finishing – this is here to mitigate any rounding errors, e.g. leaving the alpha at 0.01 instead of 0
     }
